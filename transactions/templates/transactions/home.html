@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Finance Tracker - Manage Your Money{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-primary text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold mb-3">Take Control of Your Finances</h1>
+                <p class="lead mb-4">Track expenses, set budgets, and achieve your financial goals with our secure personal finance tracker.</p>
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'register' %}" class="btn btn-light btn-lg px-4">
+                        <i class="bi bi-person-plus"></i> Get Started Free
+                    </a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-box-arrow-in-right"></i> Login
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <i class="bi bi-graph-up-arrow display-1"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container mb-5">
+    <div class="row text-center mb-5">
+        <div class="col-12">
+            <h2 class="fw-bold">Why Choose Finance Tracker?</h2>
+            <p class="text-muted">Everything you need to manage your money in one secure place</p>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-list-ul text-primary fs-4"></i>
+                    </div>
+                    <h5 class="fw-bold">Track Transactions</h5>
+                    <p class="text-muted">Monitor all your income and expenses with detailed categorization and search capabilities.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-pie-chart text-success fs-4"></i>
+                    </div>
+                    <h5 class="fw-bold">Budget Management</h5>
+                    <p class="text-muted">Set monthly budgets and get alerts when approaching your spending limits.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                        <i class="bi bi-target text-warning fs-4"></i>
+                    </div>
+                    <h5 class="fw-bold">Financial Goals</h5>
+                    <p class="text-muted">Set and track progress towards your savings and financial objectives.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Security Note -->
+<div class="bg-light py-4">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h5 class="fw-bold mb-3">
+                    <i class="bi bi-shield-check text-success"></i> 
+                    Secure & Private
+                </h5>
+                <p class="text-muted mb-4">Your financial data is protected with secure authentication. Only you can access your personal finance information.</p>
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-5">
+                    Start Managing Your Finances Today
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

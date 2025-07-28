@@ -1,0 +1,140 @@
+<!-- transactions/add_transaction.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add Transaction - Finance Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="bi bi-plus-circle"></i> Add New Transaction
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.transaction_type.id_for_label }}" class="form-label">Type</label>
+                            {{ form.transaction_type }}
+                            {% if form.transaction_type.errors %}
+                                <div class="text-danger small">{{ form.transaction_type.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.category.id_for_label }}" class="form-label">Category</label>
+                            {{ form.category }}
+                            {% if form.category.errors %}
+                                <div class="text-danger small">{{ form.category.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.amount.id_for_label }}" class="form-label">Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                {{ form.amount }}
+                            </div>
+                            {% if form.amount.errors %}
+                                <div class="text-danger small">{{ form.amount.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.date.id_for_label }}" class="form-label">Date</label>
+                            {{ form.date }}
+                            {% if form.date.errors %}
+                                <div class="text-danger small">{{ form.date.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="text-danger small">{{ form.description.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Add Transaction
+                        </button>
+                        <a href="{% url 'transaction_list' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Preload categories data from Django
+const categoriesData = {
+    {% for category in categories %}
+    "{{ category.transaction_type }}": [
+        {% for cat in categories %}
+        {% if cat.transaction_type == category.transaction_type %}
+        {id: {{ cat.id }}, name: "{{ cat.name|escapejs }}"},
+        {% endif %}
+        {% endfor %}
+    ].filter((item, index, self) => self.findIndex(t => t.id === item.id) === index),
+    {% endfor %}
+};
+
+// Remove duplicates by creating unique transaction types
+const uniqueTypes = [...new Set([
+    {% for category in categories %}
+    "{{ category.transaction_type }}",
+    {% endfor %}
+])];
+
+// Rebuild categories data properly
+const categories = {};
+uniqueTypes.forEach(type => {
+    categories[type] = [
+        {% for cat in categories %}
+        {% if cat.transaction_type %}
+        {type: "{{ cat.transaction_type }}", id: {{ cat.id }}, name: "{{ cat.name|escapejs }}"},
+        {% endif %}
+        {% endfor %}
+    ].filter(cat => cat.type === type);
+});
+
+// Dynamic category filtering based on transaction type
+document.getElementById('id_transaction_type').addEventListener('change', function() {
+    const transactionType = this.value;
+    const categorySelect = document.getElementById('id_category');
+    
+    // Clear current options
+    categorySelect.innerHTML = '<option value="">Select a category</option>';
+    
+    // Add categories for selected transaction type
+    if (transactionType && categories[transactionType]) {
+        categories[transactionType].forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            categorySelect.appendChild(option);
+        });
+    }
+});
+</script>
+{% endblock %}
