@@ -1,6 +1,6 @@
 # Personal Finance Tracker 💰
 
-A comprehensive web-based personal finance management application built with Django that helps users track income, expenses, budgets, and financial goals.
+A comprehensive web-based personal finance management application built with Django that helps users track income, expenses, budgets, and financial goals. To use the finance tracker, visit this link: https://phaser-finance-tracker-705481d36d8c.herokuapp.com/
 
 ## 🌟 Features
 
@@ -36,6 +36,8 @@ A comprehensive web-based personal finance management application built with Dja
 
 ## 🚀 Quick Start
 
+If you want to download to your computer, follow these steps:
+
 ### Prerequisites
 - Python 3.8+
 - pip (Python package manager)
@@ -46,3 +48,4 @@ A comprehensive web-based personal finance management application built with Dja
    ```bash
    git clone https://github.com/AMcCoy21/personal-finance-tracker.git
    cd personal-finance-tracker
+
